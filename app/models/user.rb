@@ -14,12 +14,12 @@ class User < ApplicationRecord
   end
 
   def self.find_by_username!(username)
-    find_by!(username: username.gsub('@', ''))
+    find_by!(username: username.gsub("@", ""))
   end
 
   private
 
   def create_inbox_collection
-    collections.create!(inbox: true, name: "Inbox")
+    collections.create!(inbox: true, name: "Inbox", private: true)
   end
 end
