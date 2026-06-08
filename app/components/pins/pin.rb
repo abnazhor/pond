@@ -13,7 +13,7 @@ module Components
       def view_template(&)
         div(href: pin_path(@pin), class: "flex-1 relative group", id: dom_id(@pin)) do
           if @pin.pinable.url_cache&.thumb&.attached?
-            img(src: url_for(@pin.pinable.url_cache.thumb.variant(resize_to_fill: [ 300, 300 ])), width: 300, height: 300, loading: :lazy)
+            img(src: url_for(@pin.pinable.url_cache.thumb.variant(:square_300)), width: 300, height: 300, loading: :lazy)
           else
             div(class: "w-full aspect-square bg-muted")
           end
