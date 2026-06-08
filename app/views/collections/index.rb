@@ -10,7 +10,7 @@ class Views::Collections::Index < Views::Base
   end
 
   def view_template
-    div do
+    div(class: "w-full") do
       render Components::Ui::PageHeader.new do |header|
         header.with_primary do
           RubyUI::Text(as: "p", weight: "", class: "mb-4") { @user.description } if @user.description.present?
@@ -18,7 +18,9 @@ class Views::Collections::Index < Views::Base
         end
 
         header.with_actions do
-          Components::Users::EditBtn(user: @user)
+          if policy(@user).edit?
+            Components::Users::EditBtn(user: @user)
+          end
         end
       end
 
@@ -30,7 +32,9 @@ class Views::Collections::Index < Views::Base
         render Components::Collections::Collection.new(collection: collection)
       end
 
-      render Components::Collections::AddBtn.new(collection: Collection.new)
+      if policy(@user).add_collection?
+        render Components::Collections::AddBtn.new(collection: Collection.new)
+      end
     end
   end
 
