@@ -8,8 +8,8 @@ class CollectionsController < ApplicationController
 
     add_breadcrumb(find_user.to_s, user_path(find_user))
 
-    @collections = policy_scope(Collection).regular.all
-    @inbox = policy_scope(Collection).find_inbox
+    @collections = policy_scope(find_user.collections).regular.all
+    @inbox = policy_scope(find_user.collections).find_inbox
 
     render Views::Collections::Index.new(collections: @collections, inbox: @inbox, user: find_user)
   end
@@ -79,7 +79,7 @@ class CollectionsController < ApplicationController
   end
 
   def find_collection
-    @find_collection ||= find_user.collections.find_by!(id: params[:id])
+    @find_collection ||= policy_scope(find_user.collections).find_by!(id: params[:id])
   end
 
   def ensure_public!
