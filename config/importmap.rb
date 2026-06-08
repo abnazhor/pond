@@ -13,3 +13,4 @@ pin "@floating-ui/utils/dom", to: "@floating-ui--utils--dom.js" # @0.2.11
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@stimulus-components/auto-submit", to: "@stimulus-components--auto-submit.js" # @6.0.0
+pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.1

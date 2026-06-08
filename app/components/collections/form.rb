@@ -10,7 +10,7 @@ module Components
 
       def view_template(&)
         form_with(model: @collection, id: :collection_form) do |f|
-          f.text_field(:name, placeholder: "Collection name...", required: true, class: "w-full mb-4 text-2xl text-center py-10", autocomplete: "off")
+          f.text_field(:name, placeholder: "Collection name...", required: true, class: "w-full mb-4 text-2xl text-center py-10", autocomplete: "off", autofocus: true)
 
           if @collection.persisted?
             div(class: "mb-6") do

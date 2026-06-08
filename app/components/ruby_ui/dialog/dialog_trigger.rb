@@ -11,7 +11,7 @@ module RubyUI
     def default_attrs
       {
         data: {
-          action: "click->ruby-ui--dialog#open"
+          action: "click->dialog#open"
         },
         class: "inline-block"
       }
