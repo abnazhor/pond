@@ -62,6 +62,10 @@ group :development do
   gem "bullet"
 end
 
+group :production do
+  gem "solid_errors", "~> 0.7.0"
+end
+
 gem "ruby_ui", "~> 1.2", group: :development, require: false
 
 gem "phlex-rails", "~> 2.4"
@@ -78,6 +82,6 @@ gem "mini_magick", "~> 5.3"
 
 gem "pundit", "~> 2.5"
 
-gem "solid_errors", "~> 0.7.0"
-
 gem "faraday", "~> 2.14"
+
+gem "validate_url", "~> 1.0"

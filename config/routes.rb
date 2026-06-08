@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  mount SolidErrors::Engine, at: "/solid_errors"
+  if Rails.env.production?
+    mount SolidErrors::Engine, at: "/solid_errors"
+  end
 
   root "application#root"
 

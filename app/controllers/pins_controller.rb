@@ -17,7 +17,7 @@ class PinsController < ApplicationController
 
       redirect_to @pin, notice: "Pin was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render :create, status: :unprocessable_entity
     end
   end
 

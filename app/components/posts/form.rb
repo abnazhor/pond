@@ -3,8 +3,12 @@ module Components
     class Form < Components::Base
       include Phlex::Rails::Helpers::FormWith
 
+      def initialize(pin: Pin.new)
+        @pin = pin
+      end
+
       def view_template(&)
-        form_with(model: Pin.new, id: :post_form) do |f|
+        form_with(model: @pin, id: :post_form) do |f|
           f.hidden_field(:collection_id, value: Current.collection&.id)
 
           f.fields_for :pinable, Post.new do |pf|
