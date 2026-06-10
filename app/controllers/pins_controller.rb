@@ -14,6 +14,7 @@ class PinsController < ApplicationController
 
     if @pin.save
       UrlCaches::RefreshJob.perform_later(@pin.pinable.url_cache)
+      @pin.collection.touch(:changed_at)
 
       redirect_to @pin, notice: "Pin was successfully created."
     else
@@ -32,6 +33,9 @@ class PinsController < ApplicationController
     current_user.collections.find_by!(id: pin_params[:collection_id])
 
     if @pin.update(pin_params.merge(created_at: Time.current))
+      @old_collection.touch(:changed_at)
+      @pin.collection.touch(:changed_at)
+
       render :update_collection, status: :ok
     else
       render :update_collection, status: :unprocessable_entity

@@ -60,7 +60,7 @@ module Components
 
         info << "private" if @collection.private
         info << "started #{time_ago_in_words(@collection.created_at)} ago"
-        info << "updated #{time_ago_in_words(@collection.updated_at)} ago"
+        info << "updated #{time_ago_in_words(@collection.changed_at)} ago" if @collection.changed_at
         info << "containing #{pluralize(@collection.pins_count, "pin")}"
 
         info.to_sentence

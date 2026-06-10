@@ -1,7 +1,7 @@
 class UrlCache < ApplicationRecord
   # include UrlCacheThumbUploader::Attachment(:thumb)
   has_one_attached :thumb do |attachable|
-    attachable.variant :square_300, resize_to_fill: [ 300, 300 ], format: :jpg, saver: { quality: 60 }, preprocessed: true
+    attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 60 }, preprocessed: true
   end
 
   def fresh?

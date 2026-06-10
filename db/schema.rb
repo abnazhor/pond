@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_07_175759) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_10_153605) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_07_175759) do
   end
 
   create_table "collections", force: :cascade do |t|
+    t.datetime "changed_at"
     t.datetime "created_at", null: false
     t.text "description"
     t.boolean "inbox", default: false, null: false

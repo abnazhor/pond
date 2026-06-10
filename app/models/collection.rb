@@ -2,6 +2,8 @@ class Collection < ApplicationRecord
   has_many :pins, dependent: :destroy
   belongs_to :user
 
+  before_validation :ensure_changed_at
+
   validates :name, presence: true
   validate :only_one_inbox_per_user, if: :inbox?
 
@@ -22,5 +24,9 @@ class Collection < ApplicationRecord
     if inbox? && user.collections.inbox.where.not(id: id).exists?
       errors.add(:inbox, "can only have one inbox collection per user")
     end
+  end
+
+  def ensure_changed_at
+    self.changed_at ||= Time.current
   end
 end
