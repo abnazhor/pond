@@ -15,4 +15,20 @@ class Components::Base < Phlex::HTML
       super
     end
   end
+
+  private
+
+  def timeago(date, format: :long)
+    return if date.blank?
+
+    content = I18n.l(date, format: format)
+
+    time(
+      title: content,
+      data: {
+        controller: "timeago",
+        timeago_datetime_value: date.iso8601
+      }
+    ) { content }
+  end
 end

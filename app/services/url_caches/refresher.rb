@@ -17,6 +17,9 @@ module UrlCaches
       else
         raise "Unsupported MIME type: #{content_type}"
       end
+
+      # @todo move that to job
+      @url_cache.posts.find_each(&:refresh_pins_cards)
     end
 
     private

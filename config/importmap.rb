@@ -14,3 +14,5 @@ pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@stimulus-components/auto-submit", to: "@stimulus-components--auto-submit.js" # @6.0.0
 pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.1
+pin "@stimulus-components/timeago", to: "https://ga.jspm.io/npm:@stimulus-components/timeago@5.0.2/dist/stimulus-timeago.mjs" # @5.0.2
+pin "date-fns", to: "https://ga.jspm.io/npm:date-fns@4.1.0/index.js" # @4.1.0
