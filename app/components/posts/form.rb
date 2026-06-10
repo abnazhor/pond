@@ -8,7 +8,7 @@ module Components
       end
 
       def view_template(&)
-        form_with(model: @pin, id: :post_form) do |f|
+        form_with(model: @pin, url: posts_path, id: :post_form) do |f|
           f.hidden_field(:collection_id, value: Current.collection&.id)
 
           f.fields_for :pinable, Post.new do |pf|

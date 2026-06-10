@@ -27,7 +27,10 @@ Rails.application.routes.draw do
     patch :update_collection, on: :member
   end
 
-  resources :posts, only: [ :new, :create ]
+  resources :posts, only: [ :new, :create ] do
+    get :pin, on: :member
+    post :pin, to: "pins#create", on: :member
+  end
 
   resources :collections, only: [ :create, :update, :destroy ]
 

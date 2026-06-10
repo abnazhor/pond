@@ -2,6 +2,8 @@ module Components
   module Pins
     class Pin::PrimaryActions < Components::Base
       include Phlex::Rails::Helpers::FormWith
+      include Phlex::Rails::Helpers::TurboFrameTag
+      include Phlex::Rails::Helpers::DOMID
 
       def initialize(pin:)
         @pin = pin
@@ -20,15 +22,25 @@ module Components
       private
 
       def save
-        options_for_select = Current.collections_for_select.map { |p| [ p.name, p.id ] }
-
-        form_with(model: @pin, url: update_collection_pin_path(@pin), class: "max-w-1/2", method: :patch, data: { controller: "auto-submit" }) do |f|
-          f.select(:collection_id,
-                   options_for_select,
-                   {},
-                   class: "bg-white p-2 max-w-full text-ellipsis",
-                   data: { action: "auto-submit#submit" }
-          )
+        Dialog(id: dom_id(@pin.pinable, :pin_dialog)) do
+          DialogTrigger do
+            Button { "Connect" }
+          end
+          DialogContent do
+            DialogHeader do
+              DialogTitle { "Connect this post" }
+              DialogDescription { "Choose a collection to connect this post to." }
+            end
+            DialogMiddle do
+              turbo_frame_tag "pin_post", src: pin_post_path(@pin.pinable), loading: :lazy do
+                "Loading..."
+              end
+            end
+            DialogFooter do
+              Button(variant: :outline, data: { action: "click->ruby-ui--dialog#dismiss" }) { "Cancel" }
+              Button(form: "new_pin_form", type: :submit) { "Save" }
+            end
+          end
         end
       end
     end

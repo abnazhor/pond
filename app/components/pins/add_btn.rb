@@ -3,7 +3,7 @@ module Components
     class AddBtn < Components::Base
       def view_template(&)
         if authenticated?
-          Dialog(data: { controller: "dialog add-pin-dialog", action: "click->dialog#backdropClose" }) do
+          Dialog(id: :add_pin_dialog, data: { controller: "dialog add-pin-dialog", action: "click->dialog#backdropClose" }) do
             DialogTrigger(data: { add_pin_dialog_target: "trigger" }) do
               Button(size: :sm) { "+ Add" }
             end
