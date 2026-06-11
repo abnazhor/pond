@@ -1,0 +1,9 @@
+<turbo-stream action="replace" target="<%= dom_id(@user, :follow_btn) %>">
+  <template>
+    <%= render Components::Users::FollowBtn.new(user: @user) %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="toast" target="ruby-ui-toaster" variant="success" title="Good!" description="You have unfollowed <%= @user.to_s %>">
+  <template></template>
+</turbo-stream>

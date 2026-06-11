@@ -13,7 +13,12 @@ Rails.application.routes.draw do
 
   root "application#root"
 
+  resource :feed
+
   resources :users, path: "/", constraints: { id: /@[^\/]+/ } do
+    post :follow, on: :member
+    delete :unfollow, on: :member
+
     resources :collections, path: "/", constraints: { id: /\d+/ }
   end
 

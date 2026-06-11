@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_10_153605) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_11_201417) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -72,6 +72,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_10_153605) do
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "actor_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "target_id", null: false
+    t.string "target_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_follows_on_actor_id"
+    t.index ["target_type", "target_id"], name: "index_follows_on_target"
+  end
+
   create_table "pins", force: :cascade do |t|
     t.integer "collection_id"
     t.datetime "created_at", null: false
@@ -131,6 +141,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_10_153605) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "auth_codes", "users"
   add_foreign_key "collections", "users"
+  add_foreign_key "follows", "users", column: "actor_id"
   add_foreign_key "pins", "collections"
   add_foreign_key "pins", "users"
   add_foreign_key "posts", "collections"

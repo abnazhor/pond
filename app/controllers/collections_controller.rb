@@ -1,6 +1,5 @@
 class CollectionsController < ApplicationController
   before_action :authenticate_user!, only: %i[update destroy]
-  before_action :preload_user_collections_for_select
 
   def index
     ensure_public!

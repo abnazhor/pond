@@ -6,4 +6,12 @@ class UserPolicy < ApplicationPolicy
   def add_collection?
     update?
   end
+
+  def follow?
+    user != record && user.present?
+  end
+
+  def unfollow?
+    user != record && user.present?
+  end
 end

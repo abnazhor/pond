@@ -31,9 +31,9 @@ class CollectionPolicy < ApplicationPolicy
 
     def resolve
       if @user.present?
-        @scope.where("private = ? OR user_id = ?", false, @user.id)
+        @scope.where("collections.private = ? OR user_id = ?", false, @user.id)
       else
-        @scope.where(private: false)
+        @scope.where("collections.private = ?", false)
       end
     end
   end

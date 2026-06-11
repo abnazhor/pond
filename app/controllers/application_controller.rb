@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def root
     if authenticated?
-      redirect_to user_path(current_user)
+      redirect_to feed_path
     else
       redirect_to join_path
     end

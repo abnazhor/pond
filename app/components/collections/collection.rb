@@ -5,10 +5,11 @@ module Components
       include Phlex::Rails::Helpers::TimeAgoInWords
       include Phlex::Rails::Helpers::DOMID
 
-      def initialize(collection:, id: nil)
-        @id = id
+      def initialize(collection:, opts: {})
+        @id = opts[:id]
         @collection = collection
         @presented_collection = CollectionPresenter.new(@collection)
+        @opts = opts
       end
 
       def view_template(&)
@@ -63,7 +64,10 @@ module Components
         info << "updated #{time_ago_in_words(@collection.changed_at)} ago" if @collection.changed_at
         info << "containing #{pluralize(@collection.pins_count, "pin")}"
 
-        info.to_sentence
+        info = info.to_sentence
+
+        info << ". Run by #{@collection.user}." if @opts[:show_author]
+        info
       end
     end
   end

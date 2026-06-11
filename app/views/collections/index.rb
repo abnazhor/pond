@@ -1,42 +1,6 @@
 # frozen_string_literal: true
 
 class Views::Collections::Index < Views::Base
-  class PrimaryMeta < Components::Base
-    include Phlex::Rails::Helpers::Pluralize
-
-    def initialize(user:)
-      @user = user
-    end
-
-    def view_template
-      RubyUI::Text(as: "p", size: "xs", weight: "muted", class: "italic") {
-        @user == current_user ? current_user_primary_meta : displayed_user_primary_meta
-      }
-    end
-
-    def current_user_primary_meta
-      items = []
-
-      items << "You have #{pluralize(collections.count, "collection")} with #{pluralize(collections.sum(&:pins_count), "pin")}."
-      items << "Your profile is private." if @user.private?
-
-      items.join(" ")
-    end
-
-    def displayed_user_primary_meta
-      items = []
-
-      items << "#{@user} has #{pluralize(collections.count, "collection")} with #{pluralize(collections.sum(&:pins_count), "pin")}."
-      items << "This profile is private." if @user.private?
-
-      items.join(" ")
-    end
-
-    def collections
-      CollectionPolicy::Scope.new(current_user, @user.collections).resolve
-    end
-  end
-
   def initialize(collections:, inbox:, user:)
     @inbox = inbox
     @collections = collections
@@ -45,20 +9,7 @@ class Views::Collections::Index < Views::Base
 
   def view_template
     div(class: "w-full") do
-      render Components::Ui::PageHeader.new do |header|
-        header.with_primary do
-          RubyUI::Text(as: "p", weight: "", class: "mb-4") { @user.description } if @user.description.present?
-          render PrimaryMeta.new(user: @user)
-        end
-
-        header.with_actions do
-          if policy(@user).edit?
-            Components::Users::EditBtn(user: @user)
-          end
-        end
-      end
-
-      Separator(class: "my-9")
+      render Views::Users::Header.new(user: @user)
 
       render Components::Collections::Collection.new(collection: @inbox) if @inbox
 
