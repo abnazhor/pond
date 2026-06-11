@@ -37,6 +37,7 @@ class Screenshoter::DefaultHandler
     @browser ||= Ferrum::Browser.new(
       ws_url: Figaro.env.screenshoter_ws_url,
       pending_connection_errors: false,
+      timeout: 120
     )
   end
 end
