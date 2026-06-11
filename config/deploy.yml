@@ -121,3 +121,16 @@ builder:
 #         - POSTGRES_PASSWORD
 #     directories:
 #       - data:/var/lib/postgresql/data
+accessories:
+  browser:
+    image: ghcr.io/browserless/chromium:latest
+    host: 209.38.211.5
+    port: 9223
+    env:
+      clear:
+        TOKEN: ""
+        CONCURRENT: 5
+        TIMEOUT: 60000
+        MAX_QUEUE_LENGTH: 20
+        CORS: "true"
+        ENABLE_DEBUGGER: "true"

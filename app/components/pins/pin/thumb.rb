@@ -11,9 +11,17 @@ module Components
 
       def view_template(&)
         div(class: "w-full aspect-square bg-muted flex items-center #{dom_id(@pin, :thumb)}") do
-          if @pin.pinable.url_cache&.thumb&.attached?
-            img(src: rails_blob_path(@pin.pinable.url_cache.thumb.variant(:square_350)), width: 350, loading: :lazy)
-          end
+          image
+        end
+      end
+
+      private
+
+      def image
+        if @pin.pinable.screenshot&.attached?
+          img(src: rails_blob_path(@pin.pinable.screenshot.variant(:square_350)), width: 350, loading: :lazy)
+        elsif @pin.pinable.url_cache&.thumb&.attached?
+          img(src: rails_blob_path(@pin.pinable.url_cache.thumb.variant(:square_350)), width: 350, loading: :lazy)
         end
       end
 

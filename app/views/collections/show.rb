@@ -33,7 +33,7 @@ class Views::Collections::Show < Views::Base
       render RubyUI::Separator.new(class: "my-9")
 
       div(class: "grid grid-cols-12 gap-9", id: "inbox-pins") do
-        @collection.pins.order(id: :desc).includes(:user, pinable: [ url_cache: :thumb_attachment ]).each do |pin|
+        @collection.pins.order(id: :desc).includes(:user, pinable: [ :screenshot_attachment, url_cache: :thumb_attachment ]).each do |pin|
           div(class: "col-span-3", id: dom_id(pin, :cell)) do
             render Components::Pins::Pin.new(pin: pin)
           end

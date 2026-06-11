@@ -15,9 +15,6 @@ class PostsController < ApplicationController
     render Views::Pins::New.new(pin: @pin, post: @post)
   end
 
-  # Find if there is a post with given url in the databaase already. If there is, use it.
-  # If not, create a new post with given url and use it.
-  #
   def create
     @referrer_action = Rails.application.routes.recognize_path(request.referer)
 
@@ -35,6 +32,7 @@ class PostsController < ApplicationController
 
     if @pin.save!
       UrlCaches::RefreshJob.perform_later(@post.url_cache) unless @post.url_cache.fresh?
+      Posts::GenerateScreenshotJob.perform_later(@post) if Figaro.env.screenshoter_enabled == "true"
       collection.touch(:changed_at)
 
       respond_to do |format|
@@ -46,25 +44,6 @@ class PostsController < ApplicationController
       end
     end
   end
-
-  # def create
-  # @pin = Pin.new(pin_params)
-  # @pin.url_cache = UrlCache.find_or_create_by(url: @pin.url)
-
-  # if @pin.save
-  #   UrlCaches::Refresher.new(@pin.url_cache).call if !@pin.url_cache.fresh?
-
-  #   respond_to do |format|
-  #     format.html { redirect_to @pin, notice: "Pin was successfully created." }
-  #     format.turbo_stream
-  #   end
-  # else
-  #   respond_to do |format|
-  #     format.html { render :new, status: :unprocessable_entity }
-  #     format.turbo_stream { head :unprocessable_entity }
-  #   end
-  # end
-  # end
 
   private
 

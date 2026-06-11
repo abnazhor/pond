@@ -85,3 +85,7 @@ gem "pundit", "~> 2.5"
 gem "faraday", "~> 2.14"
 
 gem "validate_url", "~> 1.0"
+
+gem "ferrum", "~> 0.17.2"
+
+gem "figaro", "~> 1.3"

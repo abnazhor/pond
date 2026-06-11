@@ -5,6 +5,10 @@ class Post < ApplicationRecord
 
   validates_url :url, presence: true, schemes: [ :http, :https ]
 
+  has_one_attached :screenshot do |attachable|
+    attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 60 }, preprocessed: true
+  end
+
   def refresh_pins_cards
     pins.find_each do |pin|
       broadcast_replace_later_to(pin, :card, targets: ".meta_pin_#{pin.id}", html: Components::Pins::Pin::Meta.new(pin: pin).call)
