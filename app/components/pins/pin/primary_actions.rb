@@ -37,7 +37,7 @@ module Components
               end
             end
             DialogFooter do
-              Button(variant: :outline, data: { action: "click->ruby-ui--dialog#dismiss" }) { "Cancel" }
+              Button(variant: :outline, data: { action: "click->dialog#close" }) { "Cancel" }
               Button(form: "new_pin_form", type: :submit) { "Save" }
             end
           end
