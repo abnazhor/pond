@@ -32,7 +32,7 @@ module Components
             end
 
             div(class: "col-span-9 flex gap-6") do
-              div(class: "grid grid-cols-12 gap-9") do
+              div(class: "grid grid-cols-12 gap-9 w-full") do
                 @collection.pins.newest_first.includes(:user, pinable: [ :screenshot_attachment, url_cache: :thumb_attachment ]).limit(4).each do |pin|
                   div(class: "col-span-3") do
                     render Components::Pins::Pin(pin: pin)
