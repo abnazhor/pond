@@ -34,6 +34,13 @@ class PinsController < ApplicationController
     end
   end
 
+  def secondary_actions
+    @pin = policy_scope(Pin).find(params[:id])
+    authorize @pin
+
+    render Views::Pins::SecondaryActions.new(pin: @pin)
+  end
+
   def destroy
     authorize @pin
     @pin.destroy!

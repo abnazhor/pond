@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :pins do
     get :url_images, on: :collection
     patch :update_collection, on: :member
+    get :secondary_actions, on: :member
   end
 
   resources :posts, only: [ :new, :create ] do
