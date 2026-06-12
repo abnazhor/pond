@@ -1,6 +1,6 @@
 module Components
   module Collections
-    class PinContent::Meta < Pins::Pin::Meta
+    class PinContent::Meta < Pins::Pin::MetaBase
       private
 
       def title

@@ -1,6 +1,6 @@
 module Components
   module Collections
-    class PinContent::Thumb < Pins::Pin::Thumb
+    class PinContent::Thumb < Pins::Pin::ThumbBase
       def view_template(&)
         container do
           div do

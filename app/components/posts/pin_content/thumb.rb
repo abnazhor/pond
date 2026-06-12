@@ -1,6 +1,6 @@
 module Components
   module Posts
-    class PinContent::Thumb < Components::Pins::Pin::Thumb
+    class PinContent::Thumb < Components::Pins::Pin::ThumbBase
       include ActionView::RecordIdentifier
 
       def view_template(&)
