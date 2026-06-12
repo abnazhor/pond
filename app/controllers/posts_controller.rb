@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   def create
     @referrer_action = Rails.application.routes.recognize_path(request.referer)
 
-    @post = Post.find_or_initialize_by(url: pin_params[:pinable_attributes][:url])
+    @post = Post.new(url: pin_params[:pinable_attributes][:url])
     @post.url_cache = UrlCache.find_or_create_by(url: @post.url)
     @post.save if @post.new_record?
 
