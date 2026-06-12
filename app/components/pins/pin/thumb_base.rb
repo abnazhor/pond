@@ -19,7 +19,7 @@ module Components
       end
 
       def core_container_classes
-        "w-full aspect-square bg-muted flex items-center"
+        "w-full aspect-square bg-muted flex items-center overflow-hidden"
       end
 
       def container_classes
