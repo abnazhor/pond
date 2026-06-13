@@ -5,6 +5,7 @@ class Views::Collections::Show < Views::Base
   include Phlex::Rails::Helpers::Pluralize
   include Phlex::Rails::Helpers::DOMID
   include Phlex::Rails::Helpers::LinkTo
+  include Phlex::Rails::Helpers::SimpleFormat
 
   def initialize(collection:, pins:, pagy:)
     @collection = collection
@@ -16,7 +17,7 @@ class Views::Collections::Show < Views::Base
     div(class: "w-full") do
       render Components::Ui::PageHeader.new do |header|
         header.with_primary do
-          RubyUI::Text(as: "p", weight: "") { @collection.description }
+          simple_format(@collection.description, class: "text-base mb-3")
           RubyUI::Text(as: "p", size: "xs", weight: "muted", class: "mt-4 italic") { meta_info }
         end
 

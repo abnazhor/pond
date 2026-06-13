@@ -2,6 +2,7 @@ module Components
   module Collections
     class Collection < Components::Base
       include Phlex::Rails::Helpers::DOMID
+      include Phlex::Rails::Helpers::SimpleFormat
 
       def initialize(collection:, opts: {})
         @id = opts[:id]
@@ -22,11 +23,9 @@ module Components
                 "(p)"
               } if @collection.private
 
-              Text(size: "2", class: "mt-2") do
-                @presented_collection.description
-              end
+              simple_format(@collection.description, class: "text-sm font-normal mt-2")
 
-              Text(size: "1", class: "text-muted-foreground mt-2 italic") do
+              Text(size: "1", class: "text-muted-foreground mt-3 italic") do
                 meta_info
               end
             end
