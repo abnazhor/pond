@@ -25,7 +25,7 @@ class CollectionsController < ApplicationController
 
     Current.collection = @collection
 
-    render Views::Collections::Show.new(collection: @collection, pins: @pins)
+    render Views::Collections::Show.new(collection: @collection, pins: @pins, pagy: @pagy)
   end
 
   def create

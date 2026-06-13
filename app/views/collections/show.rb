@@ -4,10 +4,12 @@ class Views::Collections::Show < Views::Base
   include Phlex::Rails::Helpers::TimeAgoInWords
   include Phlex::Rails::Helpers::Pluralize
   include Phlex::Rails::Helpers::DOMID
+  include Phlex::Rails::Helpers::LinkTo
 
-  def initialize(collection:, pins:)
+  def initialize(collection:, pins:, pagy:)
     @collection = collection
     @pins = pins
+    @pagy = pagy
   end
 
   def view_template
@@ -43,11 +45,17 @@ class Views::Collections::Show < Views::Base
 
       render RubyUI::Separator.new(class: "my-9")
 
-      div(class: "grid grid-cols-12 gap-9", id: "inbox-pins") do
-        @pins.each do |pin|
-          div(class: "col-span-3", id: dom_id(pin, :cell)) do
-            render Components::Pins::Pin.new(pin: pin)
+      div(data: { controller: :pagination, pagination_results_id: "inbox-pins", pagination_pagination_id: "pagination" }) do
+        div(class: "grid grid-cols-12 gap-9", id: "inbox-pins", data: { pagination_target: :results }) do
+          @pins.each do |pin|
+            div(class: "col-span-3", id: dom_id(pin, :cell)) do
+              render Components::Pins::Pin.new(pin: pin)
+            end
           end
+        end
+
+        div(data: { pagination_target: :pagination }) do
+          link_to("Load more", url_for(page: @pagy.next), data: { pagination_target: :link }) if @pagy.next
         end
       end
     end
