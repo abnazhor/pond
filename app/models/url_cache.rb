@@ -5,6 +5,8 @@ class UrlCache < ApplicationRecord
     attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 60 }, preprocessed: true
   end
 
+  validates :thumb, content_type: { in: [ :png, :jpeg ], spoofing_protection: true }
+
   def fresh?
     refreshed_at.present? && refreshed_at > 1.hour.ago
   end
