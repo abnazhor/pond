@@ -21,9 +21,11 @@ class CollectionsController < ApplicationController
     add_breadcrumb(find_user.to_s, user_path(find_user))
     add_breadcrumb(@collection.name, user_collection_path(@collection.user, @collection))
 
+    @pagy, @pins = pagy(policy_scope(@collection.pins.order(id: :desc).includes(:user, pinable: [ :screenshot_attachment, url_cache: :thumb_attachment ])))
+
     Current.collection = @collection
 
-    render Views::Collections::Show.new(collection: @collection)
+    render Views::Collections::Show.new(collection: @collection, pins: @collection.pins)
   end
 
   def create
