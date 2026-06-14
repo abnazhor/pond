@@ -44,7 +44,7 @@ class UrlThumbnailer::DefaultHandler
         io: io,
         filename: File.basename(URI.parse(image_url).path)
       )
-    rescue Faraday::ResourceNotFound => e
+    rescue Faraday::ResourceNotFound, Faraday::ForbiddenError => e
       # Do not report that anywhere, there will be a lot of cases like this and we can't do much about that.
       logger.warn "Thumbnail not found at URL: #{image_url} for post URL: #{@post.url}. Error: #{e.message}"
     end
