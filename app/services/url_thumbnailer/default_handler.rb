@@ -31,11 +31,15 @@ class UrlThumbnailer::DefaultHandler
 
     return unless object.images.any?
 
-    downloaded_image = URI.parse(object.images.first.src).open
+    image_url = object.images.first.src
+    logger.info "Downloading thumbnail from URL: #{image_url}..."
 
+    downloaded_image = download_thumb(image_url)
+
+    logger.info "Attaching thumbnail to URL cache for URL: #{@post.url}..."
     @url_cache.thumb.attach(
       io: downloaded_image,
-      filename: File.basename(URI.parse(object.images.first.src).path)
+      filename: File.basename(URI.parse(image_url).path)
     )
 
     @url_cache.touch(:refreshed_at)
@@ -73,5 +77,17 @@ class UrlThumbnailer::DefaultHandler
       pending_connection_errors: false,
       timeout: 240
     )
+  end
+
+  def download_thumb(url)
+    thumb_downloader_client.get(url)
+  end
+
+  def thumb_downloader_client
+    @thumb_downloader_client ||= Faraday.new do |faraday|
+      faraday.request :retry, max: 3, interval: 0.5, backoff_factor: 2
+      faraday.response :raise_error
+      faraday.adapter Faraday.default_adapter
+    end
   end
 end
