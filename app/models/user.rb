@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :follows_as_actor, class_name: "Follow", foreign_key: :actor_id, dependent: :destroy
   has_many :follows_as_target, class_name: "Follow", foreign_key: :target_id, dependent: :destroy
   has_many :followers, through: :follows_as_target, source: :actor
-  has_many :following, through: :follows_as_actor, source: :target
+  has_many :following, through: :follows_as_actor, source: :target, source_type: "User"
 
   after_create :create_inbox_collection
 
