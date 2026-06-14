@@ -23,8 +23,7 @@ class PostsController < ApplicationController
     authorize @pin
 
     if @pin.save!
-      UrlCaches::RefreshJob.perform_later(@post.url_cache) unless @post.url_cache.fresh?
-      Posts::GenerateScreenshotJob.perform_later(@post) if Figaro.env.screenshoter_enabled == "true"
+      UrlThumbnailer::FetchMetaJob.perform_later(@post)
       collection.touch(:changed_at)
 
       respond_to do |format|

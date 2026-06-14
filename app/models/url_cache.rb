@@ -2,7 +2,7 @@ class UrlCache < ApplicationRecord
   has_many :posts, dependent: :nullify
 
   has_one_attached :thumb do |attachable|
-    attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 60 }, preprocessed: true
+    attachable.variant :square_350, resize_to_fit: [ 350, 350 ], saver: { quality: 60 }, preprocessed: true
   end
 
   validates :thumb, content_type: { in: [ :png, :jpeg, :gif ], spoofing_protection: true }
