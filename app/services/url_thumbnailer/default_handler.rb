@@ -1,4 +1,9 @@
 class UrlThumbnailer::DefaultHandler
+  SCREEN_WIDTH = 1440
+  SCREEN_HEIGHT = 1440
+
+  class ResponseStatusInvalidError < StandardError; end
+
   def initialize(post:, preflight:, logger: Rails.logger)
     @post = post
     @preflight = preflight
@@ -51,9 +56,9 @@ class UrlThumbnailer::DefaultHandler
 
     page.go_to(@post.url)
     status = page.network.status
-    raise Screenshoter::ResponseStatusInvalidError.new("Invalid response status: #{status}") if status != 200
+    raise ResponseStatusInvalidError.new("Invalid response status: #{status}") if status != 200
 
-    page.set_viewport(width: Screenshoter::SCREEN_WIDTH, height: Screenshoter::SCREEN_HEIGHT)
+    page.set_viewport(width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
     sleep 2
 
     file = Tempfile.new([ "screenshot", ".png" ])
