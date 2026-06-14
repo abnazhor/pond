@@ -45,14 +45,6 @@ class UrlThumbnailer::DefaultHandler
     logger.info "Processing screenshot for URL: #{@post.url}..."
 
     page = browser.create_page
-    page.command("Network.setBlockedURLs",
-      urls: [
-        "*consent*",
-        "*cookie*",
-        "*onetrust*",
-        "*didomi*"
-      ]
-    )
 
     page.go_to(@post.url)
     status = page.network.status
