@@ -16,7 +16,7 @@ class Views::Posts::Edit < Views::Base
 
       DialogMiddle do
         form_with(model: @post, url: update_text_post_path(@post), method: :patch, id: :post_form) do |f|
-          f.marksmith :content
+          f.marksmith :content, enable_file_uploads: false
         end
       end
 
