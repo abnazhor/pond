@@ -103,3 +103,5 @@ gem "marksmith", "~> 0.5.2"
 gem "commonmarker", "~> 2.8"
 
 gem "data_migrate", "~> 11.3"
+
+gem "active_storage-blurhash"
