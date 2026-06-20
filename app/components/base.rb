@@ -33,17 +33,6 @@ class Components::Base < Phlex::HTML
     ) { content }
   end
 
-  def cdn_image_url(model)
-    host = ENV["CDN_HOST"] || ENV["HOST"] || "localhost:3000"
-    helpers = Rails.application.routes.url_helpers
-
-    if model.respond_to?(:signed_id)
-      helpers.rails_blob_url(model, host: host)
-    else
-      helpers.rails_representation_url(model, host: host)
-    end
-  end
-
   def cache_store
     Rails.cache
   end
