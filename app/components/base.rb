@@ -33,27 +33,14 @@ class Components::Base < Phlex::HTML
     ) { content }
   end
 
-  # cdn_image_url (a `direct` route) calls route_for internally which needs url_options
-  # from a request context. Since this component can render outside that context, we
-  # replicate the direct route's logic using named routes that accept an explicit host.
   def cdn_image_url(model)
     host = ENV["CDN_HOST"] || ENV["HOST"] || "localhost:3000"
-    expires_in = ActiveStorage.urls_expire_in
     helpers = Rails.application.routes.url_helpers
 
     if model.respond_to?(:signed_id)
-      helpers.rails_service_blob_proxy_url(
-        model.signed_id(expires_in: expires_in),
-        model.filename,
-        host: host
-      )
+      helpers.rails_blob_url(model, host: host)
     else
-      helpers.rails_blob_representation_proxy_url(
-        model.blob.signed_id(expires_in: expires_in),
-        model.variation.key,
-        model.blob.filename,
-        host: host
-      )
+      helpers.rails_representation_url(model, host: host)
     end
   end
 
