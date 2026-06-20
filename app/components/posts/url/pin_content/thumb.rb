@@ -38,7 +38,7 @@ module Components
         # Is there a better way to do this?
         def rails_blob_path(variant)
           if ENV["CDN_HOST"].present?
-            Rails.application.routes.url_helpers.rails_storage_proxy_url(variant, domain: ENV["CDN_HOST"])
+            Rails.application.routes.url_helpers.rails_storage_proxy_url(variant, host: ENV["CDN_HOST"])
           else
             Rails.application.routes.url_helpers.rails_representation_path(variant, only_path: true)
           end
