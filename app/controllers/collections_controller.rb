@@ -7,7 +7,7 @@ class CollectionsController < ApplicationController
 
     add_breadcrumb(find_user.to_s, user_path(find_user))
 
-    @collections = policy_scope(find_user.collections).regular.all.order(changed_at: :desc)
+    @collections = policy_scope(find_user.collections).regular.all.recently_changed_first
     @inbox = policy_scope(find_user.collections).find_inbox
 
     render Views::Collections::Index.new(collections: @collections, inbox: @inbox, user: find_user)

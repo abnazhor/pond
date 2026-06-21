@@ -12,6 +12,7 @@ class Collection < ApplicationRecord
 
   scope :inbox, -> { where(inbox: true) }
   scope :regular, -> { where(inbox: false) }
+  scope :recently_changed_first, -> { order(changed_at: :desc) }
 
   def self.find_inbox!
     find_by!(inbox: true)

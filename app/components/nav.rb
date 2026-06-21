@@ -6,7 +6,7 @@ module Components
       div(class: "fixed top-0 left-0 right-0 z-10") do
         nav(class: "flex items-center gap-2 p-3 px-5 container mx-auto bg-white place-content-between") do
           Link(href: root_path, variant: :link, class: "italic px-0 mr-3") do
-            "● PPP"
+            "● pond"
           end
 
           div(class: "flex gap-3 items-center") do
