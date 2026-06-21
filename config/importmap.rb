@@ -12,6 +12,7 @@ pin "@floating-ui/utils", to: "@floating-ui--utils.js" # @0.2.11
 pin "@floating-ui/utils/dom", to: "@floating-ui--utils--dom.js" # @0.2.11
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
+pin "@rails/activestorage", to: "activestorage.esm.js"
 pin "@stimulus-components/auto-submit", to: "@stimulus-components--auto-submit.js" # @6.0.0
 pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.1
 pin "@stimulus-components/timeago", to: "https://ga.jspm.io/npm:@stimulus-components/timeago@5.0.2/dist/stimulus-timeago.mjs" # @5.0.2
