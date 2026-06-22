@@ -18,7 +18,7 @@ module Views
 
           if policy(@pin).destroy?
             DropdownMenuSeparator()
-            DropdownMenuItem(href: pin_path(@pin), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }) { "Delete" }
+            DropdownMenuItem(href: pin_path(@pin), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }) { "Disconnect" }
           end
         end
       end
