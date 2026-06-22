@@ -119,6 +119,7 @@ class PostsController < ApplicationController
 
     @post = Post::Image.new(create_image_params.except(:collection_id))
     @post.user = current_user
+    @post.title = params.dig(:post_image, :files)&.last&.original_filename.to_s
     @post.save
 
     @pin = Pin.new
