@@ -14,7 +14,7 @@ module Components
       def view_template(&)
         cache(@collection) do
           div(class: "mb-6", id: @id || dom_id(@collection)) do
-            div(class: "grid grid-cols-12 gap-9 w-full") do
+            div(class: "grid grid-cols-12 gap-4 lg:gap-9 w-full") do
               div(class: "col-span-12 lg:col-span-3") do
                 a(href: href, class: "hover:underline") do
                   render RubyUI::Heading(level: 4, class: "inline") { @presented_collection.name }
@@ -31,8 +31,8 @@ module Components
                 end
               end
 
-              div(class: "col-span-9 flex gap-6") do
-                div(class: "grid grid-cols-12 gap-9 w-full") do
+              div(class: "col-span-12 lg:col-span-9 flex gap-6") do
+                div(class: "grid grid-cols-12 gap-4 lg:gap-9 w-full") do
                   @collection.pins.newest_first.includes(:user, pinable: [ :screenshot_attachment, url_cache: :thumb_attachment ]).limit(4).each do |pin|
                     div(class: "col-span-6 lg:col-span-3") do
                       render Components::Pins::Pin(pin: pin)
