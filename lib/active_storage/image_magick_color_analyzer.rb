@@ -1,4 +1,4 @@
-class ActiveStorage::Analyzer::ImageAnalyzer::ImageMagickColor < ActiveStorage::Blurhash::Analyzer::ImageMagick
+class ActiveStorage::ImageMagickColorAnalyzer < ActiveStorage::Blurhash::Analyzer::ImageMagick
   COLOR_COUNT = 5
 
   def self.accept?(blob)

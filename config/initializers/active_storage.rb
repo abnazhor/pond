@@ -6,5 +6,5 @@ require_relative "../../lib/active_storage/image_magick_color_analyzer.rb"
 Rails.application.config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
 Rails.application.config.after_initialize do
-  Rails.application.config.active_storage.analyzers.prepend(ActiveStorage::Analyzer::ImageAnalyzer::ImageMagickColor)
+  Rails.application.config.active_storage.analyzers.prepend(ActiveStorage::ImageMagickColorAnalyzer)
 end
