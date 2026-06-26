@@ -5,6 +5,9 @@ class PostsController < ApplicationController
     post = policy_scope(Post).find(params[:id])
     authorize post
 
+    @page_title = post.title.presence || "Untitled"
+    @page_description = post.description
+
     pins = policy_scope(Pin)
       .where(pinable: post)
       .includes(:user, collection: [ :user ])
