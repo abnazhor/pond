@@ -7,7 +7,6 @@ class UrlThumbnailer::DefaultHandler
   def initialize(post:, preflight:, logger: Rails.logger)
     @post = post
     @preflight = preflight
-    @url_cache = @post.url_cache
     @logger = logger
   end
 
@@ -22,11 +21,10 @@ class UrlThumbnailer::DefaultHandler
   def process_meta
     logger.info "Processing metadata for URL: #{@post.url}..."
 
-    object = LinkThumbnailer.generate(@url_cache.url)
-    @url_cache.update(
+    object = LinkThumbnailer.generate(@post.url)
+    @post.update!(
       title: object.title,
-      description: object.description,
-      refreshed_at: Time.current
+      description: object.description
     )
 
     return unless object.images.any?
@@ -40,7 +38,7 @@ class UrlThumbnailer::DefaultHandler
       io.rewind
 
       logger.info "Attaching thumbnail to URL cache for URL: #{@post.url}..."
-      @url_cache.thumb.attach(
+      @post.thumb.attach(
         io: compress_image(io),
         filename: File.basename(URI.parse(image_url).path)
       )
@@ -48,8 +46,6 @@ class UrlThumbnailer::DefaultHandler
       # Do not report that anywhere, there will be a lot of cases like this and we can't do much about that.
       logger.warn "Thumbnail not found at URL: #{image_url} for post URL: #{@post.url}. Error: #{e.message}"
     end
-
-    @url_cache.touch(:refreshed_at)
   end
 
   def process_screenshot

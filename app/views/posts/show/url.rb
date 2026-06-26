@@ -30,8 +30,8 @@ module Views
       def image
         if @post.screenshot.attached?
           image_tag(@post.screenshot, class: "object-contain")
-        elsif @post.url_cache&.thumb.attached?
-          image_tag(@post.url_cache.thumb, class: "object-contain")
+        elsif @post.thumb.attached?
+          image_tag(@post.thumb, class: "object-contain")
         end
       end
     end

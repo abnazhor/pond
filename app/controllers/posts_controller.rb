@@ -72,7 +72,6 @@ class PostsController < ApplicationController
     Post.transaction do
       @post = Post.new(create_url_params.except(:collection_id))
       @post.user = current_user
-      @post.url_cache = UrlCache.find_or_create_by(url: @post.url)
       @post.save if @post.new_record?
 
       @pin = Pin.new
