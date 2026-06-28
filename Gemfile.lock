@@ -128,8 +128,6 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     color (2.2.0)
-    colorscore (0.0.5)
-      color
     commonmarker (2.8.2-aarch64-linux)
     commonmarker (2.8.2-aarch64-linux-musl)
     commonmarker (2.8.2-arm-linux)
@@ -222,6 +220,8 @@ GEM
       sshkit (>= 1.23.0, < 2.0)
       thor (~> 1.3)
       zeitwerk (>= 2.6.18, < 3.0)
+    kmeans-clusterer (0.11.4)
+      narray (~> 0.6)
     language_server-protocol (3.17.0.5)
     launchy (3.1.1)
       addressable (~> 2.8)
@@ -270,6 +270,7 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.8.1)
+    narray (0.6.1.2)
     net-http (0.9.1)
       uri (>= 0.11.1)
     net-http-persistent (4.0.8)
@@ -550,7 +551,7 @@ DEPENDENCIES
   brakeman
   bullet
   bundler-audit
-  colorscore (~> 0.0.5)
+  color (~> 2.2)
   commonmarker (~> 2.8)
   data_migrate (~> 11.3)
   debug
@@ -563,6 +564,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  kmeans-clusterer (~> 0.11.4)
   letter_opener
   link_thumbnailer (~> 3.4)
   marksmith (~> 0.5.2)

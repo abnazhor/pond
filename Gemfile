@@ -113,4 +113,6 @@ gem "search_cop", "~> 1.5"
 
 gem "meta-tags", "~> 2.23"
 
-gem "colorscore", "~> 0.0.5"
+gem "kmeans-clusterer", "~> 0.11.4"
+
+gem "color", "~> 2.2"
