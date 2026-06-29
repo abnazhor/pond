@@ -17,7 +17,7 @@ class Views::Posts::NewImage < Views::Base
       DialogMiddle do
         form_with(model: @post, url: create_image_posts_path, method: :post, id: :connect_form, data: { controller: "new-image-dialog" }) do |f|
           f.hidden_field :collection_id, value: @post.collection_id
-          f.file_field(:files, input_attributes)
+          f.file_field(:files, input_attributes, direct_upload: true)
           div(class: "[&_img]:w-full mt-3", data: { new_image_dialog_target: "preview" })
         end
       end
