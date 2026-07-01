@@ -27,7 +27,7 @@ class UrlThumbnailer
 
     if handler_class.screenshotable?(@post)
       logger.info "Handler #{handler_class.name} supports screenshots. Processing screenshot for URL: #{@post.url}..."
-      # UrlThumbnailer::ProcessScreenshotHandlerJob.perform_later(@post, handler_class: handler_class)
+      UrlThumbnailer::ProcessScreenshotHandlerJob.perform_later(@post, handler_class: handler_class)
     else
       logger.info "Handler #{handler_class.name} does not support screenshots. Skipping screenshot processing for URL: #{@post.url}."
     end
