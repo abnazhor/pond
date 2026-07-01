@@ -34,14 +34,12 @@ class UrlThumbnailer::DefaultHandler
 
     begin
       downloaded_image = download_thumb(image_url)
-      io = StringIO.new(downloaded_image.body)
-      io.rewind
+      ext = File.extname(URI.parse(image_url).path).presence || ".jpg"
+      tmp = Tempfile.new([ "thumbnail", ext ]).tap { |f| f.binmode; f.write(downloaded_image.body); f.flush; f.rewind }
 
       logger.info "Attaching thumbnail to URL cache for URL: #{@post.url}..."
-      @post.thumb.attach(
-        io: compress_image(io),
-        filename: File.basename(URI.parse(image_url).path)
-      )
+      @post.thumb.attach(process_image(tmp))
+      @post.save!
     rescue Faraday::ResourceNotFound, Faraday::ForbiddenError => e
       # Do not report that anywhere, there will be a lot of cases like this and we can't do much about that.
       logger.warn "Thumbnail not found at URL: #{image_url} for post URL: #{@post.url}. Error: #{e.message}"
@@ -63,11 +61,7 @@ class UrlThumbnailer::DefaultHandler
     file = Tempfile.new([ "screenshot", ".png" ])
     page.screenshot(path: file.path)
 
-    @post.screenshot.attach(
-      io: compress_image(File.open(file.path)),
-      filename: "screenshot.png",
-      content_type: "image/png"
-    )
+    @post.screenshot.attach(process_image(file))
   end
 
   private
@@ -82,10 +76,8 @@ class UrlThumbnailer::DefaultHandler
     )
   end
 
-  def compress_image(io)
-    image = MiniMagick::Image.read(io)
-    image.quality(80)
-    StringIO.new(image.to_blob)
+  def process_image(file)
+    Image::Operation::Process.call(params: { image: file })[:output]
   end
 
   def download_thumb(url)
@@ -95,6 +87,7 @@ class UrlThumbnailer::DefaultHandler
   def thumb_downloader_client
     @thumb_downloader_client ||= Faraday.new do |faraday|
       faraday.request :retry, max: 3, interval: 0.5, backoff_factor: 2
+      faraday.response :follow_redirects
       faraday.response :raise_error
       faraday.adapter Faraday.default_adapter
     end

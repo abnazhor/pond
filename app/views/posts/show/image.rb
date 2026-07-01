@@ -28,7 +28,7 @@ module Views
       private
 
       def image
-        image_tag(@post.files.first, class: "object-contain")
+        image_tag(rails_blob_path(@post.files.first), class: "object-contain")
       end
 
       def source_link_wrap(&block)

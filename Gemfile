@@ -85,6 +85,7 @@ gem "pundit", "~> 2.5"
 
 gem "faraday", "~> 2.14"
 gem "faraday-retry"
+gem "faraday-follow_redirects", "~> 0.5.0"
 
 gem "validate_url", "~> 1.0"
 
@@ -113,4 +114,8 @@ gem "search_cop", "~> 1.5"
 
 gem "meta-tags", "~> 2.23"
 
-gem "colorscore", "~> 0.0.5"
+gem "kmeans-clusterer", "~> 0.11.4"
+
+gem "color", "~> 2.2"
+
+gem "trailblazer-rails", "~> 2.4"

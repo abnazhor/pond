@@ -29,9 +29,9 @@ module Views
 
       def image
         if @post.screenshot.attached?
-          image_tag(@post.screenshot, class: "object-contain")
+          image_tag(rails_blob_path(@post.screenshot), class: "object-contain")
         elsif @post.thumb.attached?
-          image_tag(@post.thumb, class: "object-contain")
+          image_tag(rails_blob_path(@post.thumb), class: "object-contain")
         end
       end
     end

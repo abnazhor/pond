@@ -20,7 +20,7 @@ class Post < ApplicationRecord
     attachable.variant :square_350, resize_to_fit: [ 350, 350 ], saver: { quality: 80 }, preprocessed: true
   end
 
-  validates :thumb, content_type: { in: [ :png, :jpeg, :gif ], spoofing_protection: true }
+  validates :thumb, content_type: { in: [ :png, :jpeg, :gif, :webp ], spoofing_protection: true }
 
   after_commit :refresh_caches
 
