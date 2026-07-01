@@ -85,6 +85,7 @@ gem "pundit", "~> 2.5"
 
 gem "faraday", "~> 2.14"
 gem "faraday-retry"
+gem "faraday-follow_redirects", "~> 0.5.0"
 
 gem "validate_url", "~> 1.0"
 

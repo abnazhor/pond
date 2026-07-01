@@ -35,7 +35,7 @@ class UrlThumbnailer::DefaultHandler
     begin
       downloaded_image = download_thumb(image_url)
       ext = File.extname(URI.parse(image_url).path).presence || ".jpg"
-      tmp = Tempfile.new([ "thumbnail", ext ]).tap { |f| f.binmode; f.write(downloaded_image.body); f.rewind }
+      tmp = Tempfile.new([ "thumbnail", ext ]).tap { |f| f.binmode; f.write(downloaded_image.body); f.flush; f.rewind }
 
       logger.info "Attaching thumbnail to URL cache for URL: #{@post.url}..."
       @post.thumb.attach(process_image(tmp))
@@ -87,6 +87,7 @@ class UrlThumbnailer::DefaultHandler
   def thumb_downloader_client
     @thumb_downloader_client ||= Faraday.new do |faraday|
       faraday.request :retry, max: 3, interval: 0.5, backoff_factor: 2
+      faraday.response :follow_redirects
       faraday.response :raise_error
       faraday.adapter Faraday.default_adapter
     end
