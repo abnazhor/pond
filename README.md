@@ -1,6 +1,6 @@
 # pond
 
-Federated link aggregation and inspiration gathering. Powered by ActivityPub.
+An ActivityPub-powered federated platform for aggregating links, discovering ideas, and gathering inspiration.
 
 <img width="3204" height="2416" alt="image" src="https://github.com/user-attachments/assets/c0accedc-24e0-4b2d-907e-e27c29194b53" />
 
